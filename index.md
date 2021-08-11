@@ -7,7 +7,9 @@ Para o TCC do curso, você terá de entregar um TidyTuesday! O TidyTuesday é um
 Para acessar os dados pelo R é possível utilizar o comando abaixo:
 
 ```r
-olympics <- readr::read_csv('https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2021/2021-07-27/olympics.csv&#39;)
+olympics <- readr::read_csv(
+    'https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2021/2021-07-27/olympics.csv&#39;
+    )
 ```
 
 ### Trabalhos do último curso
