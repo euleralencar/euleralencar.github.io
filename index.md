@@ -4,11 +4,15 @@ Para o TCC do curso, você terá de entregar um TidyTuesday! O TidyTuesday é um
 
 ### Dados
 
+Para acessar os dados pelo R é possível utilizar o comando abaixo:
+
+```r
 olympics <- readr::read_csv('https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2021/2021-07-27/olympics.csv&#39;)
+```
 
 ### Trabalhos do último curso
 
-Você pode olhar os trabalhos já realizados no passado para se inspirar: https://curso-r.github.io/202103-visualizacao/#trabalhos-finais-premiados
+Você pode olhar os trabalhos já realizados no passado para se inspirar: [Premiados](https://curso-r.github.io/202103-visualizacao/#trabalhos-finais-premiados)
 
 O resultado deverá ser entregue em um relatório ou apresentação à sua escolha. A submissão deve ser feita pelo classroom, subindo um arquivo .zip contendo
 - Arquivo .Rmd (gostaríamos de conseguir rodá-lo, ou seja, se ele for reprodutível é melhor)
@@ -16,9 +20,9 @@ O resultado deverá ser entregue em um relatório ou apresentação à sua escol
 - O output final (em HTML, PDF, Word, etc). Você pode escolher o formato do trabalho final.
 - Não é necessário que a base olympics esteja no repositório, já que ela pode ser lida diretamente da internet.
 
-### Markdown
+### Trabalho
 
-Markdown is a lightweight and easy-to-use syntax for styling your writing. It includes conventions for
+O trabalho foi desenvolvido utilizando o pacote xarigan e pode ser acessado no link a seguir [Trabalho final]().
 
 ```markdown
 Syntax highlighted code block
@@ -40,10 +44,6 @@ Syntax highlighted code block
 
 For more details see [GitHub Flavored Markdown](https://guides.github.com/features/mastering-markdown/).
 
-### Jekyll Themes
+### Suporte e Contato
 
-Your Pages site will use the layout and styles from the Jekyll theme you have selected in your [repository settings](https://github.com/euleralencar/euleralencar.github.io/settings/pages). The name of this theme is saved in the Jekyll `_config.yml` configuration file.
-
-### Support or Contact
-
-Having trouble with Pages? Check out our [documentation](https://docs.github.com/categories/github-pages-basics/) or [contact support](https://support.github.com/contact) and we’ll help you sort it out.
+Sugestões e/ou críticas podem ser enviadas para 'euleralencar@gmail.com'. 
