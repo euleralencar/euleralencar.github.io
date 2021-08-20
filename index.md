@@ -41,8 +41,9 @@ Syntax highlighted code block
 
 **Bold** and _Italic_ and `Code` text
 
-[Relatório](https://euleralencar.github.io/pages/rel_pretty.html) and ![Image](src)
+ and ![Image](src)
 ```
+Veja o [Relatório](https://euleralencar.github.io/pages/rel_pretty.html).
 
 For more details see [GitHub Flavored Markdown](https://guides.github.com/features/mastering-markdown/).
 
