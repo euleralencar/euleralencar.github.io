@@ -45,6 +45,8 @@ Syntax highlighted code block
 ```
 Veja o [Relatório](https://euleralencar.github.io/pages/rel_pretty.html).
 
+Veja o [Relatório Simplicado](https://euleralencar.github.io/pages/acervo_GMNM.html)
+
 For more details see [GitHub Flavored Markdown](https://guides.github.com/features/mastering-markdown/).
 
 ### Suporte e Contato
