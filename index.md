@@ -11,6 +11,9 @@ olympics <- readr::read_csv(
     'https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2021/2021-07-27/olympics.csv&#39;
     )
 ```
+### Meu projeto
+
+O relatório foi desenvolvido utilizando o pacote **readthedown** e pode ser acessado por este [link](euleralencar.github.io/pages/relatorio_cd2.html).
 
 ### Trabalhos do último curso
 
@@ -21,11 +24,6 @@ O resultado deverá ser entregue em um relatório ou apresentação à sua escol
 - Códigos auxiliares em R (se existirem)
 - O output final (em HTML, PDF, Word, etc). Você pode escolher o formato do trabalho final.
 - Não é necessário que a base olympics esteja no repositório, já que ela pode ser lida diretamente da internet.
-
-### Meu projeto
-
-O relatório foi desenvolvido utilizando o pacote **readthedown** e pode ser acessado por este [link](euleralencar.github.io/pages/relatorio_cd2.html).
-
 
 ### Suporte e Contato
 
