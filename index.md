@@ -13,7 +13,7 @@ olympics <- readr::read_csv(
 ```
 ### Meu projeto
 
-O relatório foi desenvolvido utilizando o pacote **readthedown** e pode ser acessado por este [link](https://euleralencar.github.io/pages/relatorio_cd2.html). O nosso projeto tem como objetivo analisar o desempenho do Brasil ao longo das Olimpíadas.
+O relatório foi desenvolvido utilizando o pacote **readthedown** e pode ser acessado por este **[link](https://euleralencar.github.io/pages/relatorio_cd2.html)**. O nosso projeto tem como `objetivo analisar o desempenho do Brasil ao longo das Olimpíadas`.
 
 ### Suporte e Contato
 
