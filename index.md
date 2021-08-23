@@ -13,7 +13,7 @@ olympics <- readr::read_csv(
 ```
 ### Meu projeto
 
-O relatório foi desenvolvido utilizando o pacote **readthedown** e pode ser acessado por este [link](euleralencar.github.io/pages/relatorio_cd2.html).
+O relatório foi desenvolvido utilizando o pacote **readthedown** e pode ser acessado por este [link](https://euleralencar.github.io/pages/relatorio_cd2.html).
 
 ### Trabalhos do último curso
 
