@@ -24,31 +24,13 @@ O resultado deverá ser entregue em um relatório ou apresentação à sua escol
 
 ### Meu projeto
 
-O trabalho foi desenvolvido utilizando o pacote xarigan e pode ser acessado no link a seguir: [arquivo]().
+O relatório foi desenvolvido utilizando o pacote **readthedown** e pode ser acessado por este [link](euleralencar.github.io/pages/relatorio_cd2.html).
 
-```markdown
-Syntax highlighted code block
-
-# Header 1
-## Header 2
-### Header 3
-
-- Bulleted
-- List
-
-1. Numbered
-2. List
-
-**Bold** and _Italic_ and `Code` text
-
- and ![Image](src)
-```
-Veja o [Relatório](https://euleralencar.github.io/pages/rel_pretty.html).
-
-Veja o [Relatório Simplicado](https://euleralencar.github.io/pages/acervo_GMNM.html)
-
-For more details see [GitHub Flavored Markdown](https://guides.github.com/features/mastering-markdown/).
 
 ### Suporte e Contato
 
 Sugestões e/ou críticas podem ser enviadas para 'euleralencar@gmail.com'. 
+
+### Agradecimentos
+
+Agradecimento a CursoR, especialmente a Beatriz Milz e ao Júlio Trecenti, que trouxeram conteúdo excelente e de forma bem didática.
