@@ -1,0 +1,536 @@
+---
+title: "**Desempenho do Brasil nas Olimpíadas**"
+author: "Euler Rodrigues de Alencar<br>Mestre em Estatística (UnB)<br>Brasília/DF/Brasil"
+subtitle: "<a href='https://br.linkedin.com/in/arianehayana'>Euler Rodrigues de Alencar</a><br>#TidyTuesday"
+date: "`r format(Sys.Date(), format='%d/%m/%Y')`"
+encoding: "UTF-8"
+output:
+  rmdformats::readthedown:
+   code_folding: hide
+   self_contained: true
+   thumbnails: false
+   lightbox: true
+   gallery: false
+   highlight: tango
+editor_options: 
+  markdown: 
+    wrap: 72
+---
+
+<!-- 
+Fonte:
+https://github.com/curso-r/202103-visualizacao/blob/master/trabalhos_finais/Ariane_Hayana/Tcc-Rmark.Rmd
+
+Site:
+https://curso-r.github.io/202103-visualizacao/trabalhos_finais/Ariane_Hayana/index.html#resumo
+-->
+
+```{r setup, include=FALSE}
+library(knitr)
+library(rmdformats)
+
+## Global options
+options(max.print="75")
+opts_chunk$set(echo=FALSE,
+	             cache=FALSE,
+               prompt=FALSE,
+               tidy=TRUE,
+               comment=NA,
+               message=FALSE,
+               warning=FALSE)
+opts_knit$set(width=75)
+
+# Importan pacotes
+library(tidyverse)
+library(dplyr)
+library(ggplot2)
+```
+
+
+[![Fonte: Jornal DCI)](https://www.dci.com.br/wp-content/uploads/2021/08/miriam-jeske-cob.png)]()
+
+
+## Desafio proposto
+
+<div style="text-align: justify">
+
+Este trabalho surge como desafio do curso de visualizações do [Curso-r](https://curso-r.github.io/202107-visualizacao/) em que se propões analisar dados do Projeto TidyTuesday. Esse projeto nasceu da comunidade de aprendigem online r4ds fundada por Jesse Maegan com o objetivo de ajudar a conectar mentores e alunos. 
+
+Uma das primeiras propostas nascidas dessa colaboração foi o **#TidyTuesday**, um projeto de dados sociais semanal focado no uso de pacotes tidyverse para limpar, discutir, organizar e montar visualizações para compartilhar nas redes sociais. Se quiser conhecer mais, siga a hashtag #tidytuesday no Twitter!
+
+O trabalho proposto pelo Curso-r é o exemplo das Olimpíadas disponível no github da TidyTuesday. Trata-se de um conjunto de dados históricos sobre os Jogos Olímpicos modernos, incluindo todos os Jogos de Atenas 1896 a Rio 2016. 
+
+<div/>
+
+<!--
+<div style="text-align: center">
+
+[![Fonte: How I met your mother)](https://i2.wp.com/www.statistica.it/gianluca/post/2019-05-15-challenge-accepted/challenge-accepted.jpg?zoom=3&w=578)]()
+
+<div/>
+-->
+
+## Cara, cadê meus dados?
+
+<div style="text-align: center">
+
+[![Fonte: VejaSP:os melhores momentos incríveis)](https://cinestalgiadotblog.files.wordpress.com/2017/07/cara-cade-meu-carro-gif.gif?)](https://vejasp.abril.com.br/blog/pop/londres-2012-os-melhores-momentos-em-gifs-incriveis/)
+
+<div/>
+
+<div style="text-align: justify">
+
+Há dados desde 1896, devidamente catalogados, e podem ser acessados pelo github neste [link](https://github.com/rfordatascience/tidytuesday). É possível importar os dados do nosso desafio das olimpíadas diretamente no R pelo código abaixo:
+
+<div/>
+
+```{r cars, echo= TRUE, eval=FALSE, message=FALSE, warning=FALSE, include=TRUE}
+# Importando dados olimpiadas
+
+url <- 'https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2021/2021-07-27/olympics.csv'
+olympics <- readr::read_csv(url)
+
+saveRDS(olympics, file="data/olympics.rds")
+```
+
+<div style="text-align: justify">
+
+Utilizamos um saveRDS para acessar os dados diretamente da máquina de forma mais ágil, sem dependência da internet. 
+
+<div/>
+
+## O que queremos descobrir?
+
+<div style="text-align: justify">
+
+A pergunta central da nossa pesquisa é:
+
+> **O desempenho do Brasil vem melhorando ao longo do tempo e a partir de quanto o Brasil passou a tar resultados mais expressivos nas olimpíadas?**
+
+Para responder essa pergunta, iremos seguir alguns passos. Primeiramente, será analisado o desempenho geral dos países e entender a dinâmica das olimpíadas ao longo dos anos. Um segundo capítulo se dedicará a análise do Brasil ao longo do tempo nas olimpíadas e buscar correlações com políticas públicas implementadas para desenvolvimento do esporte. Por fim, haverá discussão dos resultados e conclusões do trabalho.
+
+<div/>
+
+
+## Descrição da base
+
+Os dados extraídos da base do TidyTuesday possuem 15 variáveis e um pouco mais de 271 mil linhas. O dicionário de variáveis é dado abaixo:
+
+```{r base, echo=TRUE, message=FALSE, warning=FALSE, include=FALSE}
+olympics <- readRDS(file="data/olympics.rds")
+glimpse(olympics)
+```
+
+
+| Variável | Tipo | Descrição                     |
+|----------|------|-------------------------------|
+| Id       | dbl  | id do atleta e evento         |
+| Name     | chr  | nome do atleta                |
+| Sex      | chr  | gênero do atleta              |
+| age      | dbl  | idade do atleta               |
+| height   | dbl  | altura do atleta (cm)         |
+| weight   | dbl  | peso do atleta em (kg)        |
+| team     | chr  | país do atleta                |
+| noc      | chr  | sigla do país do atleta       |
+| games    | chr  | ano e cidade sede             |
+| season   | chr  | olimpiada de verão ou inverno |
+| city     | chr  | cidade sede                   |
+| sport    | chr  | esporte do atleta             |
+| event    | chr  | evento específico do atleta   |
+| medal    | chr  | tipo de medalha recebida      |
+
+
+A base é construída com granularidade por atleta. A contagem de medalhas diretamente da base traria a quantidade de medalhas entregues aos atletas e não a quantidade de esportes vencedores. Alguns ajustes a base original se fizeram necessárias e criação de tabelas para análise específicas foram criadas a partir da original, conforme código a seguir.
+
+
+```{r echo=TRUE, message=FALSE, warning=FALSE, include=TRUE}
+# Há países cadastrados com "-1", "-2" e "3" em seus nomes dividindo os totais
+olympics <- 
+  olympics %>% 
+  mutate(
+    team = stringr::str_remove(team, pattern = "-1"),
+    team = stringr::str_remove(team, pattern = "-2"),
+    team = stringr::str_remove(team, pattern = "-3")
+  )
+
+# Criar base para análise em que o grão é o evento
+base_olim <- 
+olympics %>% 
+  filter(season == 'Summer', !is.na(medal)) %>% 
+  group_by(sport, event, year, team, medal) %>% 
+  summarise(qtd_medal = n()) %>% 
+  mutate(ind_team = 1,
+         ind_ouro = case_when(medal == 'Gold' ~ 1,
+                         TRUE ~ 0),
+         ind_prata = case_when(medal == 'Silver' ~ 1,
+                          TRUE ~ 0),
+         ind_bronze = case_when(medal == 'Bronze' ~ 1,
+                           TRUE ~ 0)
+  )
+
+
+# Base utilizada para análises a partir do gênero
+base_olim2 <- 
+  olympics %>% 
+  filter(season == 'Summer', !is.na(medal)) %>% 
+  group_by(sport, event, year, team, sex, medal) %>% 
+  summarise(qtd_medal = n()) %>% 
+  mutate(ind_team = 1) %>% 
+  mutate(
+    ind_ouro = case_when(medal == 'Gold' ~ 1,
+                         TRUE ~ 0),
+    ind_prata = case_when(medal == 'Silver' ~ 1,
+                          TRUE ~ 0),
+    ind_bronze = case_when(medal == 'Bronze' ~ 1,
+                           TRUE ~ 0),
+  )
+
+```
+
+## Análise Geral
+
+O estudo começará do geral para o específico, isto é, vamos primeiramente estudar estatísticas mais gerais das olimpíadas, como a quantidade de medalhas distribuídas por evento e fazer a primeira conferência com as notícias oficiais das épocas. Utilizamos as notícias das olimpíadas de  2016, 2012, 2008 e 2004 para fazer batimento com as estatísticas produzidas neste estudo. Registrados as estatísticas, conforme tabela abaixo:
+
+| Ano do evento | Link | Qtd. medalhas |
+|---------------|------|---------------|
+| 2016          | [Referência 1](https://www.wikiwand.com/pt/Quadro_de_medalhas_dos_Jogos_Ol%C3%ADmpicos_de_Ver%C3%A3o_de_2016)|     973       |
+| 2012          | [Referência 2](https://www.wikiwand.com/pt/Quadro_de_medalhas_dos_Jogos_Ol%C3%ADmpicos_de_Ver%C3%A3o_de_2012)|     958       |
+| 2008          | [Referência 3](https://www.wikiwand.com/pt/Quadro_de_medalhas_dos_Jogos_Ol%C3%ADmpicos_de_Ver%C3%A3o_de_2008)|     973       |
+| 2004          | [Referência 4](Quadro_de_medalhas_dos_Jogos_Olímpicos_de_Verão_de_2004)|     928       |
+
+As quantidades totais de medalhas são bastante próximos da base disponibiliza, conforme gráfico abaixo:
+
+```{r echo=TRUE, message=FALSE, warning=FALSE}
+# Quadro geral
+base_olim %>% 
+  group_by(year) %>% 
+  summarise(n = sum(ind_team)) %>%
+  ggplot(aes(x=year, y=n)) +
+    geom_segment( aes(x=year, xend=year, y=0, yend=n), color="grey") +
+    geom_point( color="orange", size=4) +
+    geom_text(size = 2.5, aes(x=year, y = n, label = n), vjust = -1.5) +
+    theme_classic() +
+    theme(
+      panel.grid.major.x = element_blank(),
+      panel.border = element_blank(),
+      axis.ticks.x = element_blank()
+    ) +
+    ggtitle("Quantida de medalhas por olimpíada") +
+    xlab("Ano da olimpíada") +
+    ylab("Quantidade de medalhas") +
+    scale_x_continuous(breaks = seq(1896, 2016, 10)) +
+    #scale_y_continuous(breaks = seq(0, 10, 2)) +
+    coord_cartesian(ylim = c(0, 1100))
+```
+
+Observe que ao longo do anos a quantidade total de medalhas vem aumentando. Obviamente, a quantidade de medalhas está relacionada com a quantidade de eventos que aumentaram ao longo do tempo, conforme gráfico abaixo.
+
+```{r echo=TRUE, message=FALSE, warning=FALSE}
+olympics %>% 
+  filter(season == 'Summer') %>% 
+  group_by(event, year) %>% 
+  summarise(n2 = n()) %>% 
+  mutate(n3 = 1) %>% 
+  group_by(year) %>% 
+  summarise(n = sum(n3)) %>% 
+  ggplot(aes(x=year, y=n)) +
+  geom_segment( aes(x=year, xend=year, y=0, yend=n), color="grey") +
+  geom_point( color="orange", size=4) +
+  geom_text(size = 2.5, aes(x=year, y = n, label = n), vjust = -1.5) +
+  theme_classic() +
+  theme(
+    panel.grid.major.x = element_blank(),
+    panel.border = element_blank(),
+    axis.ticks.x = element_blank()
+  ) +
+  ggtitle("Quantida de eventos por olimpíada") +
+  xlab("Ano da olimpíada") +
+  ylab("Quantidade de eventos") +
+  scale_x_continuous(breaks = seq(1896, 2016, 10)) +
+  coord_cartesian(ylim = c(0, 320))
+```
+
+Agora vamos procurar responder sobre quem são os países que mais ganharam medalhas na história das olimpíadas. Já participaram das olimpíadas mais de `r n_distinct(olympics$team)` países. Como o objetivo é estudar o Brasil, selecionamos os 100 maiores ganhadores da história para verificar em qual posição nosso país estaria. 
+
+### Top 100 países com mais medalhas
+
+```{r echo=TRUE, message=FALSE, warning=FALSE}
+# Top 20 país por quantidade de medalhas totais
+base_olim %>% 
+  group_by(team) %>% 
+  summarise(medalhas = sum(ind_team),
+            ouro = sum(ind_ouro),
+            prata = sum(ind_prata),
+            bronze = sum(ind_bronze)) %>% 
+  slice_max(medalhas, n =100) %>% 
+  DT::datatable()
+```
+
+No campo "search" podemos procurar o Brasil `base = Brazil` e verificamos que somos o **trigésimo** país com mais medalhas na história das olimpíadas. Vejamos agora a distribuição dos 20 maiores países nas olimpíadas.
+
+### Distribuição de medalhas por país - Top30
+
+Para entender a distribuição das medalhas ao longo das olimpíadas, criamos um gráfico de box plot dos 30 países que mais ganharam medalhas na história dos jogos.
+
+```{r echo=TRUE, message=FALSE, warning=FALSE}
+# Top 30 país por quantidade de medalhas (Box Plot)
+
+df <- 
+  right_join(
+    base_olim %>% 
+      group_by(team, year) %>% 
+      summarise(medalhas = sum(ind_team)),
+    base_olim %>% 
+      group_by(team) %>% 
+      summarise(medalhas = sum(ind_team)) %>% 
+      slice_max(medalhas, n =30) %>% 
+      select(team), by = 'team'
+             )
+
+
+plotly::plot_ly(df,
+        y = ~medalhas,
+        color = ~team,
+        type = "box")
+```
+
+Observe que as medianas do `Estados Unidos` é semelhante ao da `União Soviética`  e `Alemanha Ocidental` com valores acima de 90. Interessante notar que há alguns países que nem existem mais, porém ainda triufam no Top30 maiores ganhadores da história, como `União Soviética`, `Alemanha Ocidental` e `Alemanha Oriental`. Observe que se sormarmos estas duas a própria `Alemanha` podemos colocá-la em outro patamar. 
+
+### Medalhas por gênero
+
+Outra questão muito atual, é a discussão da participação feminina ao longo dos anos. Queremos verificar como foi a inclusão feminina e se hoje ainda há diferenças gritantes entre os gêneros no esporte. Há [discussões](https://veja.abril.com.br/esporte/salario-do-futebol-feminino-brasileiro-se-equipara-ao-da-serie-c-masculina/) sobre o financiamento em esportes feminino e a igualdade de condições entre os gêneros em diversos esportes.
+
+
+```{r echo=TRUE, message=FALSE, warning=FALSE}
+# Gráfico com a quantidade de medalhas por sexo
+base_olim2 %>% 
+  group_by(year, sex) %>% 
+  summarise(medalhas = sum(ind_team)) %>% 
+  ggplot() +
+  geom_line(aes(x = year, y = medalhas, color = sex), size = 1.2) +
+  geom_text(size = 3, aes(x = year, y = medalhas, label=medalhas), vjust = -0.2) +
+  ggthemes::scale_colour_wsj("colors6", "") + 
+  ggthemes::theme_wsj(color = "blue") +
+  theme(legend.position="bottom",
+        text = element_text(size=8)) +
+  labs(
+    x = "ano",
+    y = "Qtd. medalhas",
+    title = "Quantidade de medalhas por gênero",
+    subtitle = "1896-2016")
+```
+
+Observe que a participação da mulher cresceu muito, porém ainda não chega no mesmo nível dos esportes masculinos, possivelmente porque ainda nem há uma proporção correta de eventos para os dois gêneros.
+
+Segundo [Wikipédia](https://www.wikiwand.com/pt/Quadro_de_medalhas_dos_Jogos_Ol%C3%ADmpicos_de_Ver%C3%A3o_de_2016), a quantidade de medalhas distribuídas na Olimpíada de 2016 foi de 936 medalhas. A diferença para nosso gráfico é que há eventos `mistos` que permitem homens e mulheres vencerem na mesma competição.
+
+
+## Análise Brasil
+
+A primeira vez do Brasil nos Jogos Olímpicos ocorreu nos Jogos Olímpicos de 1920, em Antuérpia, Bélgica. Desde então participou de cada edição, com exceção dos jogos de 1928, em Amsterdã, na Holanda. A crise econômica que o país atravessava impediu que houvesse recursos suficientes para enviar uma delegação. A tabela abaixo traz a lista de participações e medalhas por olimpíadas:
+
+```{r echo=TRUE, message=FALSE, warning=FALSE}
+medal_event <- 
+left_join(
+  # Tabela 1: Quantidade de eventos que o Brasil participou
+  olympics %>% 
+  filter(team %in% c('Brazil','Brazil-1','Brazil-2'),
+         season == 'Summer') %>% 
+  group_by(year, event) %>% 
+  summarise(n = 1) %>%
+  group_by(year) %>% 
+  summarise(eventos = sum(n)),
+  # Tabela 2: Quantidade de medalhas do Brasil
+  base_olim %>%
+    filter(team %in% c('Brazil','Brazil-1','Brazil-2')) %>% 
+    group_by(year) %>% 
+    summarise(medal = sum(ind_team)),
+  # Join pelo ano
+  by = 'year') 
+
+
+medal_event %>% 
+  DT::datatable()
+```
+
+O gráfico sobre a quantidade de medalhas do Brasil nas olimpíadas e sua participação mostra que passamos a ganhar medalhas de forma consistente desde 1948 e houve uma mudança de padrão a partir de `1996` em que ganhamos 15 medalhas, contrastando com as 3 das Olimpíadas de `1992`.
+
+```{r echo=TRUE, message=FALSE, warning=FALSE}
+medal_event %>%
+    pivot_longer(
+    cols = !year,
+    names_to = "tipo",
+    values_to = "qtd"
+    ) %>% 
+  ggplot() +
+  geom_line(aes(x = year, y = qtd, color= tipo), size = 1.2) +
+  geom_point(aes(x = year, y = qtd, color= tipo)) +
+  geom_text(size = 3, aes(x = year, y = qtd, label=qtd), vjust = -0.5) +
+  ggthemes::scale_colour_wsj("colors6", "") + 
+  ggthemes::theme_wsj(color = "green") +
+  theme(legend.position="none",
+        text = element_text(size=8)) +
+  labs(
+    x = "ano",
+    y = "quantidade",
+    title = "Medalhas e participações do Brasil",
+    subtitle = "1896-2016") +
+  scale_x_continuous(breaks = seq(1896, 2016, 10)) +
+  coord_cartesian(ylim = c(0, 230))
+```
+
+
+### Quantidade de medalhas por tipo
+
+Vamos detalhar a quantidade de medalhas (linha azul acima) por tipo: ouro, prata e bronze. Observe abaixo que costumamos a ganhar mais medalhas de bronze do que ouro ou prata. Vejamos:
+
+```{r echo=TRUE, message=FALSE, warning=FALSE}
+base_olim %>%
+  filter(team %in% c('Brazil','Brazil-1','Brazil-2')) %>% 
+  group_by(year) %>% 
+  summarise(ouro = sum(ind_ouro),
+            prata = sum(ind_prata),
+            bronze = sum(ind_bronze)
+  ) %>% 
+  pivot_longer(
+    cols = !year,
+    names_to = "medalha",
+    values_to = "qtd"
+  ) %>% 
+  # É possível utilizar o ordered = TRUE.
+  mutate(medalha = factor(medalha, 
+                          levels = c('bronze','prata','ouro'))) %>% 
+  group_by(year) %>% 
+  mutate(cum_sum = cumsum(qtd)) %>%
+  filter(qtd > 0) %>% 
+  ggplot(aes(x = year, y = qtd, fill = medalha)) +
+  geom_col(stat='identity')+ # , position = position_stack(reverse = TRUE)
+  geom_label(aes(x = year, y = cum_sum - 0.5, label = qtd)) +
+  labs(
+    x = 'ano do evento',
+    y = 'quantidade de medalhas',
+    title = 'Tipo de medalhas do Brasil nas Olimpíadas'
+  ) +
+  #theme_minimal()
+  ggthemes::scale_colour_wsj("colors6", "") + 
+  ggthemes::theme_wsj(color = "green") +
+  theme(text = element_text(size=8)) +
+  scale_x_continuous(breaks = seq(1896, 2016, 10)) +
+  coord_cartesian(ylim = c(0, 20)) +
+  scale_fill_manual(values = c("#cd7f32", "#C0C0C0", "#ffd700"))
+```
+
+
+### Esporte com mais medalhas
+
+Desejamos saber quais esportes trazem mais alegria para nosso povo. Será que é o futebol? Não!!! Nosso esporte olimpico é o `Judo`, seguido da `vela` e do `atletismo`.
+
+```{r echo=TRUE, message=FALSE, warning=FALSE}
+base_olim %>%
+  filter(team %in% c('Brazil','Brazil-1','Brazil-2')) %>% 
+  group_by(sport) %>% 
+  summarise(medal = sum(ind_team),
+            ouro = sum(ind_ouro),
+            prata = sum(ind_prata),
+            bronze = sum(ind_bronze)
+  ) %>% 
+  slice_max(medal, n = 10) %>% 
+  mutate(sport = forcats::fct_reorder(sport, medal)) %>% 
+  ggplot() +
+  geom_col(aes(x = medal, y = sport, fill=sport),
+           show.legend = FALSE)+
+  geom_label(aes(x = medal/2, y = sport, label = medal)) +
+  labs(
+    x = 'quantidade de medalhas',
+    y = 'Esportes',
+    title = 'Top10 esportes com mais medalhas'
+  ) +
+  ggthemes::scale_colour_wsj("colors6", "") + 
+  ggthemes::theme_wsj(color = "green") +
+  theme(text = element_text(size=8))
+```
+
+> **Somos o país do Judô!!!**
+
+
+Desejamos detalhas as medalhas conquistadas por cada esporte pelo seu tipo: ouro, prata e bronze. 
+
+```{r echo=TRUE, message=FALSE, warning=FALSE}
+base_olim %>%
+  # Brasil possuí três times cadastrados na base
+  filter(team %in% c('Brazil','Brazil-1','Brazil-2')) %>% 
+  group_by(sport) %>% 
+  summarise(medal = sum(ind_team),
+            ouro = sum(ind_ouro),
+            prata = sum(ind_prata),
+            bronze = sum(ind_bronze)
+  ) %>% 
+  slice_max(medal, n = 10) %>% 
+  mutate(sport = forcats::fct_reorder(sport, medal)) %>% 
+  select(!medal) %>% 
+  pivot_longer(
+    cols = ouro:bronze,
+    names_to = 'medalha',
+    values_to = 'qtd'
+  ) %>% 
+  mutate(medalha = factor(medalha, 
+                          levels =  c('bronze','prata','ouro'))) %>% 
+  # filtrar os valores 0 para não aparecer no gráfico
+  filter(qtd > 0) %>% 
+  # group_by usado para fazer a soma cumulativa
+  group_by(sport) %>% 
+  mutate(cum_sum = cumsum(qtd)) %>% 
+  ggplot(aes(x = qtd, y = sport, fill=medalha)) +
+  geom_col(stat='identity', 
+           show.legend = TRUE)+
+  geom_label(aes(x = cum_sum - 0.5, y = sport, label = qtd)) +
+  labs(
+    x = 'quantidade de medalhas',
+    y = 'Esportes',
+    title = 'Top10 esportes com mais medalhas'
+  ) +
+  ggthemes::scale_colour_wsj("colors6", "") + 
+  ggthemes::theme_wsj(color = "green") +
+  theme(text = element_text(size=8)) +
+  scale_fill_manual(values = c("#cd7f32", "#C0C0C0", "#ffd700"))
+```
+
+Observe que o esporte que mais ganhou ouro foi a vela, seguido do atletismo e do volei. O que isso significa?
+
+> **Somos o país da vela!!!**
+
+<div style="text-align: center">
+
+[![Gif de vela)](https://capricho.abril.com.br/wp-content/uploads/2015/01/v6.gif)]()
+
+<div/>
+
+
+## Discussões
+
+Há vários resultados interessantes no estudo. Separamos por tópicos a seguir:
+
+- As olimpiadas ao longo do tempo têm agregado cada vez mais esportes e eventos. Observa-se que desde 2000 a quantidade de eventos parece estar mais estável. embora tenha havido um leve crescimento de 2004 para 2008 no número de medalhas.
+- As mulheres tem conquistado cada vez mais espaço nas olimpíadas. Menos mulheres recebem menos medalhas, pois participam de menos eventos. Contudo, em 2016 encontramos a menor diferença entre homens e mulheres na série histórica.
+- O Brasil é atualmente o 30º país com mais medalhas na história das olimpiadas. Quando se considera medalhas de ouro ficamos um pouca mais para trás. 
+- Em 2016 o Brasil bateu o recorde de medalhas, com 19 conquistas. O ano de `1996` é um marco para o país, pois observou-se `aumento de 5x` em relação a Olimpíada passada. Se consideramos a média de medalhas de 1984 a 1992, ainda assim houve `aumento de mais de 50%`.
+- O recorde de medalhas de ouro em Olimpíadas é de 9 medalhas. Esse fato ocorreu em três eventos: 1996, 2008 e 2012.
+- O judo é o esporte que mais trouxe medalhas para o Brasil, contudo a vela foi o esporte que mais trouxe medalhas de ouro na nossa história. O futebol está na 7ª posição. Isto é, **somos o país do Judo**!
+- Há dois momentos importantes na série histórica de conquistas de medalhas: primeiro em 1948 em que o Brasil passa a ganhar medalhas de forma consistente, pois sempre ganhou pelo menos uma desde lá. Segundo ponto é que a partir de 1996 há uma mudança de patamar na conquista de medalhas. O primeiro ponto pode ter a ver com o Decreto-Lei 3.199/41 e o segundo com a Lei Zico (Lei 8.672/93), que profissionaliza o esporte. Veja a linha do tempo abaixo.
+
+[![Fonte: Trilhante: Panorama legislativo do desporto)](https://s3-sa-east-1.amazonaws.com/uploads-trilhante-sp/aulas-texto/C0360/0360%20-1.png
+)](https://trilhante.com.br/curso/panorama-legislativo-do-desporto/aula/historico-legislativo-1)
+
+---
+
+## Referências
+
+1. Salário do futebol feminino se equipera ao da série C masculino. (https://veja.abril.com.br/esporte/salario-do-futebol-feminino-brasileiro-se-equipara-ao-da-serie-c-masculina/)
+
+2. Quadro de medalhas da Olimpíadas de 2016. (https://www.wikiwand.com/pt/Quadro_de_medalhas_dos_Jogos_Ol%C3%ADmpicos_de_Ver%C3%A3o_de_2016)
+
+3. Panorama legislativo do desporto no Brasil. (https://trilhante.com.br/curso/panorama-legislativo-do-desporto/aula/historico-legislativo-1)
+
+
+
+
