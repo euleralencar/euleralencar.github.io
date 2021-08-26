@@ -1,7 +1,7 @@
 ---
 title: "**Desempenho do Brasil nas Olimpíadas**"
 author: "Euler Rodrigues de Alencar<br>Mestre em Estatística (UnB)<br>Brasília/DF/Brasil"
-subtitle: "<a href='https://br.linkedin.com/in/arianehayana'>Euler Rodrigues de Alencar</a><br>#TidyTuesday"
+subtitle: "<a href='https://www.linkedin.com/in/euleralencar/'>Euler Rodrigues de Alencar</a><br>#TidyTuesday"
 date: "`r format(Sys.Date(), format='%d/%m/%Y')`"
 encoding: "UTF-8"
 output:
