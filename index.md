@@ -1,24 +1,19 @@
-## Projeto final do curso de Visualizações
+## Euler Alencar
 
-Para o TCC do curso, você terá de entregar um TidyTuesday! O TidyTuesday é um evento semanal criado para engajar a comunidade no uso do R para análise de dados. Toda semana uma nova base de dados é liberada, e as pessoas da comunidade montam visualizações para compartilhar nas redes sociais. Se quiser conhecer mais, siga a hashtag #tidytuesday no Twitter! **O trabalho proposto pelo Curso-r é o exemplo das Olimpíadas disponível no github da TidyTuesday.**
+Análista de Dados no Supremo Tribunal Federal no Brasil (STF). Mestrado em Estatística pela Universidade de Brasília.
 
-### [O projeto](https://euleralencar.github.io/pages/relatorio_cd2.html)
+## Meus Projetos
 
-O nosso projeto tem como objetivo analisar o desempenho do Brasil ao longo das Olimpíadas. O relatório foi desenvolvido utilizando o pacote **readthedown** e pode ser acessado por este **[link](https://euleralencar.github.io/pages/relatorio_cd2.html)**. 
+| Projeto                              | link                                                                       |
+|:-----------------------------------|:---------------------------------------------------------------------------|
+| projeto 1                          | <https://curso-r.github.io/main-r4ds-2/slides/00-introducao-ao-curso.html> 
+| projeto 1                          | <https://curso-r.github.io/main-r4ds-2/slides/00-introducao-ao-curso.html> 
+| projeto 1                          | <https://curso-r.github.io/main-r4ds-2/slides/00-introducao-ao-curso.html> 
+| projeto 1                          | <https://curso-r.github.io/main-r4ds-2/slides/00-introducao-ao-curso.html> 
 
-### Dados
 
-Para acessar os dados pelo R é possível utilizar o comando abaixo:
 
-```r
-olympics <- readr::read_csv(
-    'https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2021/2021-07-27/olympics.csv&#39;
-    )
-```
 ### Suporte e Contato
 
-Sugestões e/ou críticas podem ser enviadas para 'euleralencar@gmail.com'. 
+Entre em contato com 'euleralencar@gmail.com'. 
 
-### Agradecimentos
-
-Agradecimento a CursoR, especialmente a Beatriz Milz e ao Júlio Trecenti, que trouxeram conteúdo excelente e de forma didática.
