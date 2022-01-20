@@ -4,10 +4,10 @@ Análista de Dados no Supremo Tribunal Federal no Brasil (STF). Mestrado em Esta
 
 ## Meus Projetos
 
-| Projeto                                       | Link                                                                                                 |
-|-----------------------------------------------|------------------------------------------------------------------------------------------------------|
-| Ciência de Dados II                           | <https://euleralencar.github.io/pages/relatorio_cd2.html>                                            |
-| Datacamp - Investigação dos filmes da Netflix | <https://github.com/euleralencar/datacamp_proj_netflix/blob/main/Investigating_Netflix_Movies.ipynb> |
+| Projeto                                       | Link                                                                                                                    |
+|-----------------------------------------------|-------------------------------------------------------------------------------------------------------------------------|
+| Ciência de Dados II                           | [link do relatório](https://euleralencar.github.io/pages/relatorio_cd2.html)                                            |
+| Datacamp - Investigação dos filmes da Netflix | [link do jupyter](https://github.com/euleralencar/datacamp_proj_netflix/blob/main/Investigating_Netflix_Movies.ipynb)   |
 
 
 ## Meu blog
