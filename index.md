@@ -4,16 +4,19 @@ Análista de Dados no Supremo Tribunal Federal no Brasil (STF). Mestrado em Esta
 
 ## Meus Projetos
 
-| Projeto                              | link                                                                       |
+| Projeto                            | link                                                                       |
 |:-----------------------------------|:---------------------------------------------------------------------------|
-| projeto 1                          | <https://curso-r.github.io/main-r4ds-2/slides/00-introducao-ao-curso.html> 
-| projeto 1                          | <https://curso-r.github.io/main-r4ds-2/slides/00-introducao-ao-curso.html> 
-| projeto 1                          | <https://curso-r.github.io/main-r4ds-2/slides/00-introducao-ao-curso.html> 
-| projeto 1                          | <https://curso-r.github.io/main-r4ds-2/slides/00-introducao-ao-curso.html> 
+| Projeto final - Ciência de Dados II| <euleralencar.github.io/pages/relatorio_cd2.html> |
+| projeto 1                          | <https://curso-r.github.io/main-r4ds-2/slides/00-introducao-ao-curso.html> |
+| projeto 1                          | <https://curso-r.github.io/main-r4ds-2/slides/00-introducao-ao-curso.html> |
+| projeto 1                          | <https://curso-r.github.io/main-r4ds-2/slides/00-introducao-ao-curso.html> |
 
 
+## Meu blog
 
-### Suporte e Contato
+Meu blog no distill pode ser acessado [aqui](https://euleralencar.github.io/portfolioeuler/).
+
+## Suporte e Contato
 
 Entre em contato com 'euleralencar@gmail.com'. 
 
