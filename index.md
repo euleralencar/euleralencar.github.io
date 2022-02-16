@@ -1,20 +1,20 @@
 ## Euler Alencar
 
-Análista de Dados no Supremo Tribunal Federal no Brasil (STF). Mestrado em Estatística pela Universidade de Brasília.
+Data Analyst at Supreme Court in Brazil (STF). Master in Statistics from the University of Brasilia (UnB)
 
-## Meus Projetos
+## My Projects
 
 | Projeto                                       | Link                                                                                                                    |
 |-----------------------------------------------|-------------------------------------------------------------------------------------------------------------------------|
-| Ciência de Dados II                           | [link do relatório](https://euleralencar.github.io/pages/relatorio_cd2.html)                                            |
-| Datacamp - Investigação dos filmes da Netflix | [link do jupyter](https://github.com/euleralencar/datacamp_proj_netflix/blob/main/Investigating_Netflix_Movies.ipynb)   |
+| Data Science Report                           | [link do relatório](https://euleralencar.github.io/pages/relatorio_cd2.html)                                            |
+| Datacamp - Investigatin Netflix Movies        | [link do jupyter](https://github.com/euleralencar/datacamp_proj_netflix/blob/main/Investigating_Netflix_Movies.ipynb)   |
 
 
-## Meu blog
+## My blog
 
-Meu blog no distill pode ser acessado [aqui](https://euleralencar.github.io/portfolioeuler/).
+My blog on distill can be accessed [here](https://euleralencar.github.io/portfolioeuler/).
 
-## Suporte e Contato
+## Contact
 
-Entre em contato com 'euleralencar@gmail.com'. 
+Get in touch with 'euleralencar@gmail.com'. 
 
